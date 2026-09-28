@@ -1,0 +1,127 @@
+/* Design tokens: every color and spacing used by the components comes from here. */
+:root {
+  --color-bg: #f5f6f8;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f0f2f5;
+  --color-border: #dfe3e8;
+  --color-text: #1b2330;
+  --color-text-muted: #5b6574;
+  --color-primary: #1f5fbf;
+  --color-focus: #1f5fbf;
+
+  --color-pending: #5b6574;
+  --color-pending-bg: #eceff3;
+  --color-partial: #9a5b00;
+  --color-partial-bg: #fff1d6;
+  --color-received: #1c7a3e;
+  --color-received-bg: #dcf3e4;
+  --color-danger: #b42318;
+  --color-danger-bg: #fdecea;
+
+  --radius: 8px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  color-scheme: light dark;
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #0f141b;
+    --color-surface: #171d26;
+    --color-surface-muted: #1e2530;
+    --color-border: #2c3542;
+    --color-text: #e6eaf0;
+    --color-text-muted: #9aa4b2;
+    --color-primary: #6ea0ff;
+    --color-focus: #6ea0ff;
+
+    --color-pending: #9aa4b2;
+    --color-pending-bg: #252d39;
+    --color-partial: #f0b44c;
+    --color-partial-bg: #3a2c12;
+    --color-received: #5fd08a;
+    --color-received-bg: #133322;
+    --color-danger: #ff8a80;
+    --color-danger-bg: #3d1a17;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--color-bg);
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+input[type='checkbox'] {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--color-received);
+  cursor: pointer;
+}
+
+input[type='checkbox']:disabled {
+  cursor: progress;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Hidden visually, still read by screen readers. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

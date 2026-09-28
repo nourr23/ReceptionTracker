@@ -1,0 +1,23 @@
+.badge {
+  display: inline-block;
+  padding: 2px var(--space-2);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.Pending {
+  color: var(--color-pending);
+  background: var(--color-pending-bg);
+}
+
+.PartiallyReceived {
+  color: var(--color-partial);
+  background: var(--color-partial-bg);
+}
+
+.Received {
+  color: var(--color-received);
+  background: var(--color-received-bg);
+}
