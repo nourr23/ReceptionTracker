@@ -131,6 +131,19 @@ public class OrderReceptionTests
     }
 
     [Fact]
+    public void Find_methods_return_the_matching_element_or_null()
+    {
+        var order = CreateOrder();
+
+        var pallet = order.FindPallet("PAL-01");
+
+        Assert.NotNull(pallet);
+        Assert.Equal("CART-01-B", pallet.FindCarton("CART-01-B")?.Code);
+        Assert.Null(pallet.FindCarton("CART-02-A"));
+        Assert.Null(order.FindPallet("PAL-99"));
+    }
+
+    [Fact]
     public void Adding_a_duplicate_pallet_code_throws()
     {
         var order = CreateOrder();

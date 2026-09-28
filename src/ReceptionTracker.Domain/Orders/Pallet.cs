@@ -46,5 +46,7 @@ public class Pallet
         }
     }
 
+    public Carton? FindCarton(string code) => _cartons.SingleOrDefault(c => c.Code == code);
+
     public ReceptionProgress GetProgress() => ReceptionProgress.From(Products);
 }

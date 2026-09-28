@@ -41,5 +41,9 @@ public class Order
         return pallet;
     }
 
+    public Pallet? FindPallet(string code) => _pallets.SingleOrDefault(p => p.Code == code);
+
+    public ProductLine? FindProductLine(int id) => Products.SingleOrDefault(p => p.Id == id);
+
     public ReceptionProgress GetProgress() => ReceptionProgress.From(Products);
 }
