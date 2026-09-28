@@ -1,3 +1,68 @@
-@ReceptionTracker.Api_HostAddress = http://localhost:5143
+@host = http://localhost:5143
+@orderId = CMD-2026
 
-###
+### List the orders with their status and progress
+GET {{host}}/api/orders
+Accept: application/json
+
+### Get an order with its full hierarchy
+GET {{host}}/api/orders/{{orderId}}
+Accept: application/json
+
+### Validate a pallet (all its cartons and products)
+PUT {{host}}/api/orders/{{orderId}}/pallets/PAL-01/reception
+Content-Type: application/json
+
+{
+  "isReceived": true
+}
+
+### Un-validate a pallet
+PUT {{host}}/api/orders/{{orderId}}/pallets/PAL-01/reception
+Content-Type: application/json
+
+{
+  "isReceived": false
+}
+
+### Validate a carton (all its products)
+PUT {{host}}/api/orders/{{orderId}}/pallets/PAL-01/cartons/CART-01-A/reception
+Content-Type: application/json
+
+{
+  "isReceived": true
+}
+
+### Validate a single product line (use an "id" from the order detail)
+PUT {{host}}/api/orders/{{orderId}}/products/1/reception
+Content-Type: application/json
+
+{
+  "isReceived": true
+}
+
+### Un-validate a single product line → its carton and pallet become PartiallyReceived
+PUT {{host}}/api/orders/{{orderId}}/products/1/reception
+Content-Type: application/json
+
+{
+  "isReceived": false
+}
+
+### Error: unknown order → 404
+GET {{host}}/api/orders/CMD-9999
+Accept: application/json
+
+### Error: unknown carton → 404
+PUT {{host}}/api/orders/{{orderId}}/pallets/PAL-01/cartons/UNKNOWN/reception
+Content-Type: application/json
+
+{
+  "isReceived": true
+}
+
+### Error: missing "isReceived" → 400
+PUT {{host}}/api/orders/{{orderId}}/pallets/PAL-01/reception
+Content-Type: application/json
+
+{}

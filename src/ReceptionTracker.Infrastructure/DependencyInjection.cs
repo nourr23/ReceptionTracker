@@ -11,15 +11,20 @@ namespace ReceptionTracker.Infrastructure;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services)
     {
-        var connectionString = configuration.GetConnectionString("ReceptionDb")
-            ?? throw new InvalidOperationException("Connection string 'ReceptionDb' is not configured.");
+        // The connection string is resolved from the final configuration when the DbContext is created,
+        // so hosts (e.g. integration tests) can override it after the services are registered.
+        services.AddDbContext<ReceptionDbContext>((serviceProvider, options) =>
+        {
+            var connectionString = serviceProvider.GetRequiredService<IConfiguration>().GetConnectionString("ReceptionDb")
+                ?? throw new InvalidOperationException("Connection string 'ReceptionDb' is not configured.");
 
-        services.AddDbContext<ReceptionDbContext>(options => options
-            .UseSqlite(connectionString)
-            .UseSeeding((context, _) => OrderSeeder.Seed(context))
-            .UseAsyncSeeding((context, _, cancellationToken) => OrderSeeder.SeedAsync(context, cancellationToken)));
+            options
+                .UseSqlite(connectionString)
+                .UseSeeding((context, _) => OrderSeeder.Seed(context))
+                .UseAsyncSeeding((context, _, cancellationToken) => OrderSeeder.SeedAsync(context, cancellationToken));
+        });
 
         // Same scoped DbContext instance: the repository tracks changes, the unit of work commits them.
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ReceptionDbContext>());
