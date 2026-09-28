@@ -16,19 +16,26 @@ internal static class OrderEndpoints
 
         orders.MapGet("/{orderId}", GetOrder)
             .WithName(nameof(GetOrder))
-            .WithSummary("Get an order with its full hierarchy: pallets, cartons and product lines.");
+            .WithSummary("Get an order with its full hierarchy: pallets, cartons and product lines.")
+            .ProducesProblem(StatusCodes.Status404NotFound);
 
         orders.MapPut("/{orderId}/pallets/{palletId}/reception", SetPalletReception)
             .WithName(nameof(SetPalletReception))
-            .WithSummary("Validate or un-validate a pallet, with all its cartons and products.");
+            .WithSummary("Validate or un-validate a pallet, with all its cartons and products.")
+            .ProducesProblem(StatusCodes.Status400BadRequest)
+            .ProducesProblem(StatusCodes.Status404NotFound);
 
         orders.MapPut("/{orderId}/pallets/{palletId}/cartons/{cartonId}/reception", SetCartonReception)
             .WithName(nameof(SetCartonReception))
-            .WithSummary("Validate or un-validate a carton, with all its products.");
+            .WithSummary("Validate or un-validate a carton, with all its products.")
+            .ProducesProblem(StatusCodes.Status400BadRequest)
+            .ProducesProblem(StatusCodes.Status404NotFound);
 
         orders.MapPut("/{orderId}/products/{productLineId:int}/reception", SetProductLineReception)
             .WithName(nameof(SetProductLineReception))
-            .WithSummary("Validate or un-validate a single product line.");
+            .WithSummary("Validate or un-validate a single product line.")
+            .ProducesProblem(StatusCodes.Status400BadRequest)
+            .ProducesProblem(StatusCodes.Status404NotFound);
 
         return app;
     }
