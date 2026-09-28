@@ -1,0 +1,48 @@
+.app {
+  min-height: 100vh;
+}
+
+.header {
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.header h1 {
+  font-size: 1.25rem;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: var(--space-6);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-6);
+}
+
+.sidebar {
+  display: grid;
+  align-content: start;
+  gap: var(--space-3);
+}
+
+.sidebarTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.content {
+  min-width: 0;
+}
+
+/* Tablet / phone: the order list goes above the detail. */
+@media (max-width: 800px) {
+  .layout {
+    grid-template-columns: 1fr;
+    padding: var(--space-4);
+  }
+}

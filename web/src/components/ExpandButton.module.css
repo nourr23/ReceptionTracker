@@ -1,0 +1,25 @@
+.button {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.button:hover {
+  background: var(--color-surface-muted);
+}
+
+.chevron {
+  display: inline-block;
+  transition: transform 0.15s ease;
+}
+
+.expanded {
+  transform: rotate(90deg);
+}
